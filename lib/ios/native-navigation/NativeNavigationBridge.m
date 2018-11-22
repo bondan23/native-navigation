@@ -39,5 +39,6 @@ RCT_EXTERN_METHOD(presentNative:(NSString *)name
 RCT_EXTERN_METHOD(dismiss:(NSDictionary *)payload animated:(BOOL)animated)
 RCT_EXTERN_METHOD(pop:(NSDictionary *)payload animated:(BOOL)animated)
 RCT_EXTERN_METHOD(replace:(NSString *)screenName withProps:(NSDictionary *)props animated:(BOOL)animated)
+RCT_EXTERN_METHOD(popToScreen:(NSString *)screenName animated:(BOOL)animated)
 
 @end

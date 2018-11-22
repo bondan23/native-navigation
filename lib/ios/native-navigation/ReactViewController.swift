@@ -78,7 +78,7 @@ open class ReactViewController: UIViewController {
   open weak var delegate: ReactViewControllerDelegate?
   var dismissResultCode: ReactFlowResultCode?
   var dismissPayload: [String: AnyObject]?
-  fileprivate let moduleName: String
+  open let moduleName: String
   fileprivate var props: [String: AnyObject]
   fileprivate let coordinator: ReactNavigationCoordinator = ReactNavigationCoordinator.sharedInstance
   fileprivate var initialConfig: [String: AnyObject]

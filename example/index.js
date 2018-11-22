@@ -27,3 +27,19 @@ Navigator.registerScreen(
     mode: 'tabs',
   }
 );
+Navigator.registerScreen(
+  'Test1',
+  () => require('./screens/Screen1').default
+);
+Navigator.registerScreen(
+  'Test2',
+  () => require('./screens/Screen2').default
+);
+Navigator.registerScreen(
+  'Test3',
+  () => require('./screens/Screen3').default
+);
+Navigator.registerScreen(
+  'Test4',
+  () => require('./screens/Screen4').default
+);

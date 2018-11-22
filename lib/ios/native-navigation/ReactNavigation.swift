@@ -186,6 +186,26 @@ class ReactNavigation: NSObject {
     }
   }
 
+  func popToScreen(_ screenName: String, animated: Bool) {
+    print("pop to screen")
+    // if top VC is being presented in a TabBarController, pop will pop all of the
+    // Tabs, in which case we should make sure to dereference each of them.
+    
+    // TODO(lmr):
+    // what if the JS environment wants to pop a parent navigationController of the
+    // top navigationController? Perhaps we could pass an optional "level" param or something.
+    DispatchQueue.main.async {
+      guard let vc = self.coordinator.topViewController() else { return }
+      if let nav = self.coordinator.topNavigationController() {
+        if let getVc = nav.viewControllers.first(where: { rvc -> Bool in
+            return (rvc as? ReactViewController)?.moduleName == screenName
+        }) {
+            vc.navigationController?.popToViewController(getVc, animated: true)
+        }
+      }
+    }
+  }
+
   func replace(_ screenName: String, withProps props: [String: AnyObject], animated: Bool) {
     print("replace \(screenName)")
     DispatchQueue.main.async {

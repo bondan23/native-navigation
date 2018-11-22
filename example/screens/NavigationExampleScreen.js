@@ -37,6 +37,10 @@ export default class NavigationExampleScreen extends Component {
           onPress={() => Navigator.present('ScreenOne')}
         />
         <Row
+          title="Push test screen"
+          onPress={() => Navigator.push('Test1')}
+        />
+        <Row
           title="Push new screen"
           onPress={() => Navigator.push('ScreenOne')}
         />
