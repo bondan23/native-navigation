@@ -1,18 +1,76 @@
 use_frameworks!
 
-project 'native-navigation.xcodeproj'
+#project 'native-navigation.xcodeproj'
 
 target 'native-navigation' do
-  pod 'Yoga', :path => '../../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
+  pod 'yoga', :path => '../../node_modules/react-native/ReactCommon/yoga/yoga.podspec'
   pod 'native-navigation', :path => '../../'
   pod 'React', :path => '../../node_modules/react-native', :subspecs => [
     'Core',
     'RCTText',
     'RCTNetwork',
+    'DevSupport',
     'RCTWebSocket', # needed for debugging
     'RCTAnimation',
     'RCTImage',
-    'RCTNetwork'
+    'RCTNetwork',
+    'tvOS',
+    'RCTLinkingIOS'
     # Add any other subspecs you want to use in your project
   ]
+  
+  [
+  'Core',
+  'RCTText',
+  'RCTWebSocket',
+  'RCTNetwork',
+  'DevSupport',
+#  'RCTVibration',
+  'RCTImage',
+#  'RCTGeolocation',
+  'RCTAnimation',
+#  'RCTActionSheet',
+#  'RCTSettings',
+  'RCTLinkingIOS',
+#  'CxxBridge',
+#  'RCTCameraRoll',
+  'tvOS',
+  ]
+  
+  
 end
+
+post_install do |installer|
+    `sed -i '' 's/#import <RCTAnimation\\/RCTValueAnimatedNode.h>/#import \"RCTValueAnimatedNode.h\"/' ../../node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedNodesManager.h`
+    `sed -i '' 's#<fishhook/fishhook.h>#\"fishhook.h\"#g' ../../node_modules/react-native/Libraries/WebSocket/RCTReconnectingWebSocket.m`
+    installer.pods_project.targets.each do |target|
+        if target.name == 'yoga'
+            target.build_configurations.each do |config|
+                config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+                config.build_settings['GCC_WARN_64_TO_32_BIT_CONVERSION'] = 'NO'
+            end
+        end
+    end
+    remove_unused_yoga_header
+end
+
+def remove_unused_yoga_header
+    # some imported headers break the compilation because they contain C++ code
+    filepath = './Pods/Target Support Files/yoga/yoga-umbrella.h'
+    
+    contents = []
+    
+    file = File.open(filepath, 'r')
+    file.each_line do | line |
+        contents << line
+    end
+    file.close
+    
+    contents.delete_at(14) # #import "YGNodePrint.h"
+    contents.delete_at(14) # #import "Yoga-internal.h"
+    
+    file = File.open(filepath, 'w') do |f|
+        f.puts(contents)
+    end
+end
+
