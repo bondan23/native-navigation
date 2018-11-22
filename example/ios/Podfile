@@ -7,6 +7,7 @@ target 'native-navigation' do
   pod 'native-navigation', :path => '../../'
   pod 'React', :path => '../../node_modules/react-native', :subspecs => [
     'Core',
+    'CxxBridge',
     'RCTText',
     'RCTNetwork',
     'DevSupport',
@@ -17,24 +18,6 @@ target 'native-navigation' do
     'tvOS',
     'RCTLinkingIOS'
     # Add any other subspecs you want to use in your project
-  ]
-  
-  [
-  'Core',
-  'RCTText',
-  'RCTWebSocket',
-  'RCTNetwork',
-  'DevSupport',
-#  'RCTVibration',
-  'RCTImage',
-#  'RCTGeolocation',
-  'RCTAnimation',
-#  'RCTActionSheet',
-#  'RCTSettings',
-  'RCTLinkingIOS',
-#  'CxxBridge',
-#  'RCTCameraRoll',
-  'tvOS',
   ]
   
   
