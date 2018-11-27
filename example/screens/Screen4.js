@@ -11,7 +11,7 @@ export default class Screen4 extends Component {
           title="Screen 4"
         />
         <Row
-          title="Pop"
+          title="Pop to Screen 2"
           onPress={() => Navigator.popToScreen('Test2')}
         />
       </Screen>
