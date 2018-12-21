@@ -202,6 +202,15 @@ class ReactNavigation: NSObject {
         }) {
             vc.navigationController?.popToViewController(getVc, animated: true)
         }
+        
+        if let childGetVc = nav.viewControllers.first(where: { rvc -> Bool in
+            if let getChildVc = rvc.childViewControllers.first {
+                return (getChildVc as? ReactViewController)?.moduleName == screenName
+            }
+            return false
+        }) {
+            vc.navigationController?.popToViewController(childGetVc, animated: true)
+        }
       }
     }
   }
